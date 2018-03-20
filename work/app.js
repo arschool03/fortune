@@ -59,19 +59,68 @@ let omikujiNakami = [
 
 
 // おみくじを引く
-let hikuOmikuji = () => {
+// let hikuOmikuji = () => {
 
-  // 始めの画面のおみくじ画像を隠す
+//   // 始めの画面のおみくじ画像を隠す
+//   kakusuPanel(omikujiImage);
+
+//   // 「おみくじを引く」ボタンを隠す
+//   kakusuPanel(hikuButton);
+
+//   // おみくじの中身の数までが出るサイコロをふる
+//   let saikoroMe = furuSaikoro(omikujiNakami.length);
+
+//   // 出て来たサイコロの目からおみくじの結果を得る
+//   let omikujiKekka = omikujiNakami[saikoroMe];
+
+//   // おみくじの結果からタイトルを画面に貼り付ける
+//   setteiKekkaTitle(omikujiKekka.kekkaTitle);
+
+//   // おみくじの結果から説明を画面に貼り付ける
+//   setteiKekkaSetsumei(omikujiKekka.kekkaSetsumei);
+
+//   // おみくじの結果から画像を画面に貼り付ける
+//   setteiKekkaImage(omikujiKekka.kekkaImage);
+
+//   // おみくじの結果画面を表示する
+//   miseruPanel(kekkaPanel);
+
+//   // 「戻る」ボタンを表示する
+//   miseruPanel(modoruButton);
+
+// }
+
+// 読み込み終わったら初期設定を実行する
+// shokiSettei();
+
+// ルーレットの中身
+let omikujiRoulette = [
+  'ao.png',
+  'aka.png',
+  'kiiro.png',
+  'midori.png',
+  'murasaki.png'
+];
+// ルーレットを表示する関数
+let miseruRoulette = () => {
+  // 出目がアニメーションの画像数だけあるサイコロを振る
+  let saikoroKekka = furuSaikoro(omikujiRoulette.length);
+  // サイコロを振って出た番号の画像を表示させる。
+  setteiHomeImage(omikujiRoulette[saikoroKekka]);
+};
+
+let miseruOmikujiKekka = () => {
+// おみくじの結果を見せる  // ルーレットに使っていた画像を隠す
   kakusuPanel(omikujiImage);
 
-  // 「おみくじを引く」ボタンを隠す
-  kakusuPanel(hikuButton);
+  // タイトル画面のおみくじ画像を設定する
+  setteiHomeImage('r.png');
 
   // おみくじの中身の数までが出るサイコロをふる
-  let saikoroMe = furuSaikoro(omikujiNakami.length);
+  let saikoroKekka = furuSaikoro(omikujiNakami.length);
 
   // 出て来たサイコロの目からおみくじの結果を得る
-  let omikujiKekka = omikujiNakami[saikoroMe];
+  let omikujiKekka = omikujiNakami[saikoroKekka];
 
   // おみくじの結果からタイトルを画面に貼り付ける
   setteiKekkaTitle(omikujiKekka.kekkaTitle);
@@ -89,15 +138,33 @@ let hikuOmikuji = () => {
   miseruPanel(modoruButton);
 
 }
+// おみくじを引く
+let hikuOmikuji = () => {
+
+  // 「おみくじを引く」ボタンを隠す
+  kakusuPanel(hikuButton);
+
+  // 0.1秒で画像を変えるルーレットのアニメーションを開始する
+  let rouletteTimer = kurikaesuTimer(miseruRoulette,100);
+
+  // 3秒待って結果を表示する
+  matsuTimer(()=>{
+    // ルーレットのタイマーを止める
+    tomeruTimer(rouletteTimer);
+
+    // おみくじの結果を見せる
+    miseruOmikujiKekka();
+
+  },3000); // 3000ミリ秒=3秒に設定
+
+}
 
 // 読み込み終わったら初期設定を実行する
 shokiSettei();
 
-// ルーレットの中身
-let omikujiRoulette = [
-  'ao.png',
-  'aka.png',
-  'kiiro.png',
-  'midori.png',
-  'murasaki.png'
-];
+
+
+
+
+
+
